@@ -124,7 +124,7 @@ ORDER BY b.{displayLevel}
         If rbtnAmmoChargeBlueprints.Checked Then
             Return "And ITEM_CATEGORY = 'Charge'"
         ElseIf rbtnBPDroneBlueprints.Checked Then
-            Return "AND ITEM_CATEGORY = 'Drone'"
+            Return "AND ITEM_CATEGORY IN ('Drone', 'Fighter')"
         ElseIf rbtnBPModuleBlueprints.Checked Then
             Return "AND ITEM_CATEGORY = 'Module' AND ITEM_GROUP NOT LIKE 'Rig%'"
         ElseIf rbtnBPShipBlueprints.Checked Then
@@ -232,6 +232,9 @@ ORDER BY b.{displayLevel}
     End Function
 
     Private Sub treBlueprintTreeView_DoubleClick(sender As Object, e As EventArgs) Handles treBlueprintTreeView.DoubleClick
+        If (treBlueprintTreeView.SelectedNode Is Nothing) Then
+            Return
+        End If
         RaiseEvent BPSelected(treBlueprintTreeView.SelectedNode.Text)
     End Sub
 
